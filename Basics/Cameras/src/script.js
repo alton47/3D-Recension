@@ -19,7 +19,17 @@ const sizes = {
 };
 
 // Camera
-const camera = new THREE.PerspectiveCamera(55, sizes.width / sizes.height);
+// const camera = new THREE.PerspectiveCamera(55, sizes.width / sizes.height);
+const aspectRatio = sizes.width / sizes.height;
+const camera = new THREE.OrthographicCamera(
+  -1 * aspectRatio,
+  1 * aspectRatio,
+  1,
+  -1,
+  0.1,
+  100,
+);
+
 camera.position.x = 2;
 camera.position.z = 0.01;
 camera.position.y = 2;
@@ -32,8 +42,8 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.setSize(sizes.width, sizes.height);
 
+// Animation
 const tick = () => {
-  // Update objects
   mesh.rotation.y += 0.01;
   renderer.render(scene, camera);
   window.requestAnimationFrame(tick);
