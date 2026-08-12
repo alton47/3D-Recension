@@ -18,6 +18,9 @@ scene.add(mesh);
 const axesHelper = new THREE.AxesHelper();
 scene.add(axesHelper);
 
+//Scale
+mesh.scale.x = 3;
+
 /**
  * Sizes
  */
