@@ -19,8 +19,11 @@ const sizes = {
 };
 
 // Camera
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height);
-camera.position.z = 2;
+const camera = new THREE.PerspectiveCamera(55, sizes.width / sizes.height);
+camera.position.x = 2;
+camera.position.z = 0.01;
+camera.position.y = 2;
+camera.lookAt(mesh.position);
 scene.add(camera);
 
 // Renderer
@@ -28,4 +31,12 @@ const renderer = new THREE.WebGLRenderer({
   canvas: canvas,
 });
 renderer.setSize(sizes.width, sizes.height);
-renderer.render(scene, camera);
+
+const tick = () => {
+  // Update objects
+  mesh.rotation.y += 0.01;
+  renderer.render(scene, camera);
+  window.requestAnimationFrame(tick);
+};
+
+tick();
