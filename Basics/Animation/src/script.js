@@ -29,17 +29,18 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.setSize(sizes.width, sizes.height);
 
-let time = Date.now();
+const clock = new THREE.Clock();
 
 // Animate
 const tick = () => {
-  //Time
-  const currentTime = Date.now();
-  const deltaTime = currentTime - time;
-  time = currentTime;
+  //CLock
+  const elapseedTime = clock.getElapsedTime();
 
   //Animation
-  mesh.rotation.y += 0.001 * deltaTime;
+  //mesh.rotation.y = elapseedTime * Math.PI * 2; // +1 Rotation per Second
+  //mesh.rotation.y = Math.sin(elapseedTime); // Sinus Animation
+  mesh.position.y = Math.sin(elapseedTime); // Sinus starts at 0 then up then Zero
+  mesh.position.x = Math.cos(elapseedTime); // Cosine starts at 1
 
   //Renderer
   renderer.render(scene, camera);
