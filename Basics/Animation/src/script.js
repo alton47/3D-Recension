@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import gsap from "gsap";
 
 // Canvas
 const canvas = document.querySelector("canvas.webgl");
@@ -29,19 +30,11 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.setSize(sizes.width, sizes.height);
 
-const clock = new THREE.Clock();
+gsap.to(mesh.position, { duration: 1, delay: 1, x: 2 });
+gsap.to(mesh.position, { duration: 1, delay: 2, x: 0 });
 
 // Animate
 const tick = () => {
-  //CLock
-  const elapseedTime = clock.getElapsedTime();
-
-  //Animation
-  //mesh.rotation.y = elapseedTime * Math.PI * 2; // +1 Rotation per Second
-  //mesh.rotation.y = Math.sin(elapseedTime); // Sinus Animation
-  mesh.position.y = Math.sin(elapseedTime); // Sinus starts at 0 then up then Zero
-  mesh.position.x = Math.cos(elapseedTime); // Cosine starts at 1
-
   //Renderer
   renderer.render(scene, camera);
   window.requestAnimationFrame(tick);
