@@ -31,6 +31,18 @@ const sizes = {
   height: window.innerHeight,
 };
 
+window.addEventListener("resize", () => {
+  // Update sizes
+  sizes.width = window.innerWidth;
+  sizes.height = window.innerHeight;
+
+  // Update camera
+  camera.aspect = sizes.width / sizes.height;
+  camera.updateProjectionMatrix();
+
+  renderer.setSize(sizes.width, sizes.height);
+});
+
 // Camera
 const camera = new THREE.PerspectiveCamera(55, sizes.width / sizes.height);
 camera.position.z = 2;
@@ -46,6 +58,7 @@ const renderer = new THREE.WebGLRenderer({
   canvas: canvas,
 });
 renderer.setSize(sizes.width, sizes.height);
+renderer.setPixelRatio(window.devicePixelRatio);
 
 // Animation
 let time = 0;
@@ -61,7 +74,7 @@ const tick = () => {
 
   controls.update();
 
-  renderer.render(scene, camera); /*  */
+  renderer.render(scene, camera);
   window.requestAnimationFrame(tick);
 };
 
