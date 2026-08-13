@@ -20,14 +20,10 @@ const canvas = document.querySelector("canvas.webgl");
 const scene = new THREE.Scene();
 
 // Objects
-const points = [];
-for (let i = 0; i < 10; i++) {
-  points.push(new THREE.Vector2(Math.sin(i * 0.2) * 10 + 5, (i - 5) * 2));
-}
-const geometry = new THREE.LatheGeometry(points);
-const material = new THREE.MeshBasicMaterial({ color: 0xffdd00 });
-const lathe = new THREE.Mesh(geometry, material);
-scene.add(lathe);
+const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+const material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+const torus = new THREE.Mesh(geometry, material);
+scene.add(torus);
 
 // Sizes
 const sizes = {
