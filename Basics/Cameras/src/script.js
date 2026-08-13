@@ -27,8 +27,8 @@ scene.add(mesh);
 
 // Sizes
 const sizes = {
-  width: 1140,
-  height: 600,
+  width: window.innerWidth,
+  height: window.innerHeight,
 };
 
 // Camera
