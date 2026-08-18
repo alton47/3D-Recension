@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import GUI from "lil-gui";
+import { debug } from "three/src/nodes/utils/DebugNode.js";
 
 // Debug
 const gui = new GUI();
@@ -28,6 +29,18 @@ const myObject = {
   varbo: 337,
 };
 gui.add(myObject, "varbo");
+
+gui.add(mesh, "visible").name("isVisible");
+gui.add(material, "wireframe").name("isWireframe");
+gui.addColor(material, "color").name("color");
+
+//Add a function
+debugObject.spin = () => {
+  gsap.to(mesh.rotation, {
+    y: mesh.rotation.y + Math.PI * 2,
+  });
+};
+gui.add(debugObject, "spin").name("Spin the cube");
 
 // Sizes
 const sizes = {
