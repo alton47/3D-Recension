@@ -22,6 +22,13 @@ const material = new THREE.MeshBasicMaterial({
 const mesh = new THREE.Mesh(geometry, material);
 scene.add(mesh);
 
+gui.add(mesh.position, "y").min(-3).max(3).step(0.01).name("elevation");
+
+const myObject = {
+  varbo: 337,
+};
+gui.add(myObject, "varbo");
+
 // Sizes
 const sizes = {
   width: window.innerWidth,
