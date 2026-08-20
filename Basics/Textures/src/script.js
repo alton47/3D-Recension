@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { color } from "three/src/nodes/tsl/TSLCore.js";
 
 //Textures
 const loadingManager = new THREE.LoadingManager();
@@ -23,13 +24,17 @@ loadingManager.onError = (url) => {
 };
 
 const textureLoader = new THREE.TextureLoader(loadingManager);
-const colorTexture = textureLoader.load("/textures/door/door.jpg");
+const colorTexture = textureLoader.load("/textures/leza.png");
 const alphaTexture = textureLoader.load("/textures/door/alpha.jpg");
 const heightTexture = textureLoader.load("/textures/door/height.jpg");
 const normalTexture = textureLoader.load("/textures/door/normal.jpg");
 const ambientOcclusionTexture = textureLoader.load(
   "/textures/door/ambientOcclusion.jpg",
 );
+
+colorTexture.generateMipmaps = false;
+
+colorTexture.magFilter = THREE.NearestFilter;
 
 /**
  * Base
@@ -47,6 +52,7 @@ const geometry = new THREE.BoxGeometry(1, 1, 1);
 const material = new THREE.MeshBasicMaterial({ map: colorTexture });
 const mesh = new THREE.Mesh(geometry, material);
 scene.add(mesh);
+console.log(geometry.attributes);
 
 /**
  * Sizes
