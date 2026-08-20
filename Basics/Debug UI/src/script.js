@@ -1,10 +1,31 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import GUI from "lil-gui";
-import { debug } from "three/src/nodes/utils/DebugNode.js";
 
 // Debug
-const gui = new GUI();
+const gui = new GUI({
+  width: 400,
+  title: "Debug UI",
+  theme: "dark",
+  closeFolded: true,
+});
+
+gui.hide();
+
+window.addEventListener("keydown", (event) => {
+  if (event.key === "h") {
+    gui.hide();
+  }
+  if (event.key === "s") {
+    gui.show();
+  }
+  if (event.key === "c") {
+    gui.close();
+  }
+  if (event.key === "o") {
+    gui.open();
+  }
+});
 
 /**
  * Base
@@ -32,7 +53,10 @@ gui.add(myObject, "varbo");
 
 gui.add(mesh, "visible").name("isVisible");
 gui.add(material, "wireframe").name("isWireframe");
-gui.addColor(material, "color").name("color");
+
+const folder = gui.addFolder("Mesh");
+
+folder.addColor(material, "color").name("color");
 
 //Add a function
 debugObject.spin = () => {
