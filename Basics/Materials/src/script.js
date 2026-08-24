@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
+import * as dat from "lil-gui";
 
 /**
  * Base
@@ -49,8 +50,13 @@ door.encoding = THREE.sRGBEncoding;
 
 // Objects
 
-const material = new THREE.MeshMatcapMaterial();
-material.matcap = saturn;
+const material = new THREE.MeshStandardMaterial();
+material.metalness = 0.7;
+material.roughness = 0.2;
+
+const gui = new dat.GUI();
+gui.add(material, "metalness").min(0).max(1).step(0.01);
+gui.add(material, "roughness").min(0).max(1).step(0.01);
 
 const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
 //const sphereMaterial = new THREE.MeshBasicMaterial({ map: door });
