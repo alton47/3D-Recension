@@ -64,11 +64,6 @@ const sphereMesh = new THREE.Mesh(sphereGeometry, material);
 scene.add(sphereMesh);
 sphereMesh.position.x = -2;
 
-// const planeGeometry = new THREE.PlaneGeometry(1, 1);
-// //const planeMaterial = new THREE.MeshBasicMaterial({ map: green });
-// const planeMesh = new THREE.Mesh(planeGeometry, material);
-// scene.add(planeMesh);
-
 const sphere = new THREE.SphereGeometry(1, 32, 32);
 //const sphereMaterial = new THREE.MeshBasicMaterial({ map: door });
 const sphereMe = new THREE.Mesh(sphere, material);
