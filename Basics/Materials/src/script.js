@@ -50,13 +50,37 @@ door.encoding = THREE.sRGBEncoding;
 
 // Objects
 
-const material = new THREE.MeshStandardMaterial();
+const material = new THREE.MeshPhysicalMaterial();
 material.metalness = 0.7;
 material.roughness = 0.2;
+
+material.clearcoat = 1;
+material.clearcoatRoughness = 0.1;
+
+material.sheen = 1;
+material.sheenRoughness = 1;
+material.sheenColor.set(1, 1, 1);
+
+material.iridescence = 1;
+material.iridescenceIOR = 1.5;
+material.iridescenceThicknessRange = [0.1, 0.2];
+
+material.transmission = 1;
+material.ior = 1.5;
+material.thickness = 0.5;
 
 const gui = new dat.GUI();
 gui.add(material, "metalness").min(0).max(1).step(0.01);
 gui.add(material, "roughness").min(0).max(1).step(0.01);
+gui.add(material, "clearcoat").min(0).max(1).step(0.01);
+gui.add(material, "clearcoatRoughness").min(0).max(1).step(0.01);
+gui.add(material, "iridescence").min(0).max(1).step(0.01);
+gui.add(material, "iridescenceIOR").min(0).max(1).step(0.01);
+gui.add(material, "sheen").min(0).max(1).step(0.01);
+gui.add(material, "sheenRoughness").min(0).max(1).step(0.01);
+gui.add(material, "transmission").min(0).max(1).step(0.01);
+gui.add(material, "ior").min(0).max(1).step(0.01);
+gui.add(material, "thickness").min(0).max(1).step(0.01);
 
 const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
 //const sphereMaterial = new THREE.MeshBasicMaterial({ map: door });
@@ -68,13 +92,12 @@ const sphere = new THREE.SphereGeometry(1, 32, 32);
 //const sphereMaterial = new THREE.MeshBasicMaterial({ map: door });
 const sphereMe = new THREE.Mesh(sphere, material);
 scene.add(sphereMe);
-sphereMe.position.x = 0.2;
+sphereMe.position.x = 2;
 
 const torusGeometry = new THREE.TorusGeometry(0.5, 0.2, 32, 64);
 //const torusMaterial = new THREE.MeshBasicMaterial({ map: saturn });
 const torusMesh = new THREE.Mesh(torusGeometry, material);
 scene.add(torusMesh);
-torusMesh.position.x = 2;
 
 const colorTexture = textureLoader.load("/textures/leza.png");
 colorTexture.magFilter = THREE.NearestFilter;
