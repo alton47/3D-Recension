@@ -1,7 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import GUI from "lil-gui";
-import typefaceFont from "three/examples/fonts/helvetiker_regular.typeface.json";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
 
@@ -17,15 +16,20 @@ const canvas = document.querySelector("canvas.webgl");
 // Scene
 const scene = new THREE.Scene();
 
+// AxesHelper
+const axesHelper = new THREE.AxesHelper();
+scene.add(axesHelper);
+
 /**
  * Textures
  */
 const textureLoader = new THREE.TextureLoader();
+const matcapTexture = textureLoader.load("/textures/matcaps/4.png");
 
 // FOnts
 const fontLoader = new FontLoader();
 
-fontLoader.load(typefaceFont, (font) => {
+fontLoader.load("/fonts/helvetiker_regular.typeface.json", (font) => {
   const textGeometry = new TextGeometry("Hello Three.js", {
     font: font,
     size: 0.5,
@@ -37,20 +41,33 @@ fontLoader.load(typefaceFont, (font) => {
     bevelOffset: 0,
     bevelSegments: 5,
   });
-  const textMaterial = new THREE.MeshBasicMaterial();
+
+  textGeometry.center();
+
+  for (let i = 0; i < 99; i++) {
+    const torusGeometry = new THREE.TorusGeometry(0.3, 0.2, 20, 45);
+    const torusMaterial = new THREE.MeshMatcapMaterial({
+      matcap: matcapTexture,
+    });
+    const torus = new THREE.Mesh(torusGeometry, torusMaterial);
+
+    torus.position.x = (Math.random() - 0.5) * 10;
+    torus.position.y = (Math.random() - 0.5) * 10;
+    torus.position.z = (Math.random() - 0.5) * 10;
+
+    const randomScale = Math.random();
+    torus.scale.set(randomScale, randomScale, randomScale);
+
+    torus.rotation.x = Math.random() * Math.PI;
+    torus.rotation.y = Math.random() * Math.PI;
+
+    scene.add(torus);
+  }
+
+  const textMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture });
   const text = new THREE.Mesh(textGeometry, textMaterial);
   scene.add(text);
 });
-
-/**
- * Object
- */
-const cube = new THREE.Mesh(
-  new THREE.BoxGeometry(1, 1, 1),
-  new THREE.MeshBasicMaterial(),
-);
-
-scene.add(cube);
 
 /**
  * Sizes
