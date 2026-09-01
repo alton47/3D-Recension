@@ -18,10 +18,9 @@ const scene = new THREE.Scene();
  * Lights
  */
 
-const rectAreaLight = new THREE.RectAreaLight(0x4e00ff, 2, 1, 1);
-rectAreaLight.position.set(-1.5, 0, 1.5);
-rectAreaLight.lookAt(new THREE.Vector3());
-scene.add(rectAreaLight);
+const spotLight = new THREE.SpotLight(0xffffff, 0.5, 10, Math.PI * 0.3);
+spotLight.position.set(0, 2, 3);
+scene.add(spotLight);
 
 /**
  * Objects
